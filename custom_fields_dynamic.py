@@ -52,7 +52,6 @@ def update_maps(url,main_key,table_name,column_str,fields_list):
                     values_str += "N'%s'," % row[key].replace("'", "''")
                 else:
                     values_str += "N'%s'," % row[key]
-            print(values_str)
             values_str = values_str.strip(',')
             values_str = values_str.replace("N'None'", "NULL")
             execute_sql_statement(1, cursor, sql_insert_into(table_name,row['id'],column_str,values_str))
