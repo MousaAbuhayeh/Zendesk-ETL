@@ -5,7 +5,7 @@ from ndicts.ndicts import NestedDict
 
 def update_tickets_info():
     cursor = connect_to_sql_server()
-    url = 'https://equiti-helpdesk.zendesk.com/api/v2/incremental/tickets/cursor.json?per_page=1000&include=metric_sets,comment_count&start_time=1609459200'
+    url = 'https://equiti-helpdesk.zendesk.com/api/v2/incremental/tickets/cursor.json?per_page=1000&include=metric_sets,comment_count&start_time='+str(int(time.time())-100000)
 
 
     while url:
@@ -82,7 +82,6 @@ def update_tickets_info():
             else:
                 values_str += "N'None',"
 
-            print(values_str)
             values_str = values_str.strip(',')
             values_str = values_str.replace("N'None'", "NULL")
             execute_sql_statement(1, cursor, sql_insert_into('zen_metric_sets', metric['id'], metric_sets_columns_str, values_str))

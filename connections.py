@@ -41,6 +41,7 @@ def connect_to_sql_server():
         target_cnxn = pyodbc.connect(cnxn_str)
     except:
         logger.exception('Target Connection ERROR!!')
+        exit()
     target_cursor = target_cnxn.cursor()
     return target_cursor
 
@@ -49,6 +50,7 @@ def execute_sql_statement(is_insert_statement,cursor,sql_statement):
         cursor.execute(sql_statement)
     except:
         logger.exception('Zendesk tickets ETL query ERROR' + sql_statement)
+        exit()
     if is_insert_statement == 1:
         cursor.commit()
 
@@ -57,3 +59,6 @@ def execute_sql_statement(is_insert_statement,cursor,sql_statement):
 def fetch_data(cursor):
     data = cursor.fetchall()
     return data
+
+def send_report(msg):
+    logger.error(msg)

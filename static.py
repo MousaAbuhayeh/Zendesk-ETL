@@ -1,6 +1,7 @@
+import time
 
 #sql server
-native_client ='SQL Server Native Client 11.0'
+native_client ='ODBC Driver 17 for SQL Server'
 sql_server = 'eqdb04z.database.windows.net'
 database = 'BI-WORKSPACE'
 database_uid = 'naljuaidi'
@@ -19,7 +20,7 @@ ticket_fields_key_list = ["id","title"]
 ticket_fields_column_str = '"id","field_name"'
 
 #mapping urls,table_names,columns_Str,value_lists
-map_url_list = ['https://equiti-helpdesk.zendesk.com/api/v2/ticket_fields.json?per_page=100','https://equiti-helpdesk.zendesk.com/api/v2/groups.json?per_page=100','https://equiti-helpdesk.zendesk.com/api/v2/incremental/users.json?per_page=1000&start_time=1667779200']
+map_url_list = ['https://equiti-helpdesk.zendesk.com/api/v2/ticket_fields.json?per_page=100','https://equiti-helpdesk.zendesk.com/api/v2/groups.json?per_page=100','https://equiti-helpdesk.zendesk.com/api/v2/incremental/users.json?per_page=1000&start_time='+str(int(time.time())-100000)]
 main_key_list = ['ticket_fields','groups','users']
 table_name_list = ['zen_ticket_fields','zen_groups','zen_users']
 column_str_list = ['"id","field_name"','"id","is_public","name","description","default","deleted","created_at","updated_at"','"id","name","email","created_at","updated_at","time_zone","iana_time_zone","role","verified","active","last_login_at","two_factor_auth_enabled","custom_role_id","restricted_agent","suspended","default_group_id"']

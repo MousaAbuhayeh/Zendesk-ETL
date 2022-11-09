@@ -1,13 +1,17 @@
 import time
+from datetime import date
+
+from connections import send_report
 from custom_fields_dynamic import check_create_custom_fields,update_maps
 from static import map_url_list,main_key_list,table_name_list,column_str_list,fields_list_list
 from tickets_info_dynamic import update_tickets_info
+
 
 st = time.time()
 
 #--first section (ticket_fields insert,custom_fields check/create_new)
 
-print(check_create_custom_fields())
+custom_fields_added = check_create_custom_fields()
 
 #--update mapping tables(ticket_fields,groups,users)
 
@@ -16,10 +20,18 @@ for i, val in enumerate(map_url_list):
 
 #--update tickets info(tickets,metric_sets,custom_fields)
 
-#update_tickets_info()
+update_tickets_info()
 
 et = time.time()
-print(et-st)
+
+runtime = et - st
+msg = '''
+Zendesk ETL Completion report :
+Zendesk Process completed within {} seconds for {}
+New custom fields result : {}'''.format(runtime,date.today(),custom_fields_added)
+
+send_report(msg)
+
 
 
 
