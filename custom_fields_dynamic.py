@@ -1,15 +1,12 @@
 from connections import get_response,connect_to_sql_server,execute_sql_statement,fetch_data
 from sql_statements import sql_insert_into,sql_list_columns,sql_create_columns
+from static import base_url
 
 
 def check_create_custom_fields():
-    connect_to_sql_server()
-    url = 'https://equiti-helpdesk.zendesk.com/api/v2/tickets/1.json'
-
-
 
     #base ticket data
-    url = 'https://equiti-helpdesk.zendesk.com/api/v2/tickets/1.json'
+    url = base_url
     data = get_response(url)
 
 
