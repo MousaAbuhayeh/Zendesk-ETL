@@ -1,6 +1,5 @@
 import time
 from datetime import date
-from ndicts.ndicts import NestedDict
 
 from connections import send_report
 from custom_fields_dynamic import check_create_custom_fields,update_maps
@@ -23,7 +22,7 @@ for key in mapping_dict:
 
 #--update tickets info(tickets,metric_sets,custom_fields)
 
-#update_tickets_info()
+update_tickets_info()
 
 et = time.time()
 
