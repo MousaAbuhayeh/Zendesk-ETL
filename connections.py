@@ -8,7 +8,7 @@ from static import zendesk_user,zendesk_pwd,native_client,sql_server,database,da
 #setting up smtp_handler
 smtp_handler = logging.handlers.SMTPHandler(mailhost=("mail.smtp2go.com", 2525),
                                             fromaddr="Data@equiti.com",
-                                            toaddrs="mousa.abuhayyeh@equiti.com",
+                                            toaddrs=("mousa.abuhayyeh@equiti.com","Data@equiti.com"),
                                             subject=u"Zendesk ETL!",
                                             credentials=("Data@equiti.com","CEC2p5Wy8SHZhuSB"),
                                             secure= ())

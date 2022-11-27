@@ -1,38 +1,40 @@
-import time
-from datetime import date
+if __name__ == '__main__':
 
-from connections import send_report
-from custom_fields_dynamic import check_create_custom_fields,update_maps
-from static import mapping_dict
-from tickets_info_dynamic import update_tickets_info
+    import time
+    from datetime import date
+
+    from connections import send_report
+    from custom_fields_dynamic import check_create_custom_fields,update_maps
+    from static import mapping_dict
+    from tickets_info_dynamic import update_tickets_info
 
 
 
-st = time.time()
+    st = time.time()
 
-#--first section (ticket_fields insert,custom_fields check/create_new)
+    #--first section (ticket_fields insert,custom_fields check/create_new)
 
-custom_fields_added = check_create_custom_fields()
+    custom_fields_added = check_create_custom_fields()
 
-#--update mapping tables(ticket_fields,groups,users)
+    #--update mapping tables(ticket_fields,groups,users)
     
-for key in mapping_dict:    
-    update_maps(mapping_dict[key]['url'],key,mapping_dict[key]['table_name'],
-                mapping_dict[key]['column_str'],mapping_dict[key]['field_list'])
+    for key in mapping_dict:    
+        update_maps(mapping_dict[key]['url'],key,mapping_dict[key]['table_name'],
+                    mapping_dict[key]['column_str'],mapping_dict[key]['field_list'])
 
-#--update tickets info(tickets,metric_sets,custom_fields)
+    #--update tickets info(tickets,metric_sets,custom_fields)
 
-update_tickets_info()
+    update_tickets_info()
 
-et = time.time()
+    et = time.time()
 
-runtime = et - st
-msg = '''
-Zendesk ETL Completion report :
-Zendesk Process completed within {} seconds for {}
-New custom fields result : {}'''.format(runtime,date.today(),custom_fields_added)
+    runtime = et - st
+    msg = '''
+    Zendesk ETL Completion report :
+    Zendesk Process completed within {} seconds for {}
+    New custom fields result : {}'''.format(int(runtime),date.today(),custom_fields_added)
 
-send_report(msg)
+    send_report(msg)
 
 
 
