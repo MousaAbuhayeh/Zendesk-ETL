@@ -98,7 +98,6 @@ def update_tickets_info():
         custom_val_str = custom_val_str.strip(',')
         metric_val_str = metric_val_str.strip(',')
         id_str = id_str.strip(',')
-        print('500 tickets done')
         execute_sql_statement(1,cursor,sql_insert_into('zen_tickets',id_str,tickets_columns_str,ticket_val_str))
         execute_sql_statement(1,cursor,sql_insert_into('zen_custom_fields', id_str, custom_column_str,custom_val_str,'ticket_id'))
         execute_sql_statement(1,cursor,sql_insert_into('zen_metric_sets', id_str, metric_sets_columns_str, metric_val_str))
