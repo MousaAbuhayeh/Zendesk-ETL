@@ -59,12 +59,11 @@ def update_maps(url,main_key,table_name,column_str,fields_list):
         values_str = values_str.replace("N'None'", "NULL")
         id_str = id_str.strip(',')
         execute_sql_statement(1, cursor, sql_insert_into(table_name,id_str,column_str,values_str))
-
         if main_key == 'users':
             if data['end_of_stream'] is True:
                 url = None
             else:
-                url = data['after_url']
+                url = data['next_page']
         else:
             if data['next_page'] is None:
                 url = None
