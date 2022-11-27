@@ -95,3 +95,4 @@ metric_sets_columns_str = '''"id","ticket_id","created_at","updated_at","group_s
 
 #Base ticket's url
 base_url = 'https://equiti-helpdesk.zendesk.com/api/v2/tickets/1.json'
+ticket_update_url = 'https://equiti-helpdesk.zendesk.com/api/v2/incremental/tickets/cursor.json?per_page=500&include=metric_sets,comment_count&start_time='+str(int(time.time())-100000)
