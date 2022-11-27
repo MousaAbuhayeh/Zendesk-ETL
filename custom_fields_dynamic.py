@@ -41,17 +41,25 @@ def update_maps(url,main_key,table_name,column_str,fields_list):
 
     #fetching ticket fields, users, groups data
     while url:
+        values_str = ''
+        id_str = ''
         data = get_response(url)
         for row in data[main_key]:
-            values_str = ''
+            id_str += "'%s'," % row['id']
+            values_str += "("
             for key in fields_list:
                 if isinstance(row[key], str):
                     values_str += "N'%s'," % row[key].replace("'", "''")
                 else:
                     values_str += "N'%s'," % row[key]
+
             values_str = values_str.strip(',')
-            values_str = values_str.replace("N'None'", "NULL")
-            execute_sql_statement(1, cursor, sql_insert_into(table_name,row['id'],column_str,values_str))
+            values_str += "),"
+        values_str = values_str.strip(',')
+        values_str = values_str.replace("N'None'", "NULL")
+        id_str = id_str.strip(',')
+        print(sql_insert_into(table_name,id_str,column_str,values_str))
+        execute_sql_statement(1, cursor, sql_insert_into(table_name,id_str,column_str,values_str))
 
         if main_key == 'users':
             if data['end_of_stream'] is True:
