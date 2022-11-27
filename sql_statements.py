@@ -1,17 +1,12 @@
 #list of sql statement to be used with proper EXECUTE functions and server connections in main
 
 #returns sql statement when executed will insert/delete records into sql table
-def sql_insert_into(table_name,id,columns_str,values_str, column_name='id'):
+def sql_insert_into(table_name,id_string,columns_str,values_str,column_name='id'):
 
     sql_statement='''
-        Declare @id nvarchar(50);
-        SET @id ='{}';IF EXISTS (SELECT 1 from dbo.{} WHERE {} = @id)
-        BEGIN
-        DELETE FROM dbo.{} WHERE {} = @id;
-        INSERT INTO dbo.{} ({}) VALUES({});END
-        ELSE
-        BEGIN
-        INSERT INTO dbo.{} ({}) VALUES({});END'''.format(id,table_name,column_name,table_name,column_name,table_name,columns_str,values_str,table_name,columns_str,values_str)
+        DELETE FROM dbo.{} WHERE {} in ({});
+        INSERT INTO dbo.{} ({}) VALUES{};
+        '''.format(table_name,column_name,id_string,table_name,columns_str,values_str)
 
     return sql_statement
 
