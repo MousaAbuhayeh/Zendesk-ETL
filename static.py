@@ -33,7 +33,7 @@ mapping_dict = {
       "column_str":'"id","is_public","name","description","default","deleted","created_at","updated_at"',
       "field_list":["id","is_public","name","description","default","deleted","created_at","updated_at"]},
       "users":
-      {"url":'https://equiti-helpdesk.zendesk.com/api/v2/incremental/users.json?per_page=1000&start_time='+str(int(time.time())-100000),
+      {"url":'https://equiti-helpdesk.zendesk.com/api/v2/incremental/users/cursor.json?per_page=1000&start_time='+str(int(time.time())-100000),
        "table_name":"zen_users",
        "column_str":'''"id","name","email","created_at","updated_at","time_zone","iana_time_zone","role",
        "verified","active","last_login_at","two_factor_auth_enabled","custom_role_id","restricted_agent",

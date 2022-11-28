@@ -63,7 +63,7 @@ def update_maps(url,main_key,table_name,column_str,fields_list):
             if data['end_of_stream'] is True:
                 url = None
             else:
-                url = data['next_page']
+                url = data['after_url']
         else:
             if data['next_page'] is None:
                 url = None
