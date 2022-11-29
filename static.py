@@ -1,17 +1,4 @@
 import time
-from ndicts.ndicts import NestedDict
-
-#sql server
-native_client ='ODBC Driver 17 for SQL Server'
-sql_server = 'eqdb04z.database.windows.net'
-database = 'BI-WORKSPACE'
-database_uid = 'naljuaidi'
-database_pwd = '5CoxmlDDeq'
-
-
-#zendesk api
-zendesk_user = 'nahed.aljuaidi@equiti.com' + '/token'
-zendesk_pwd = '8swd2AbpTKhp0GbMMozjwkYnbxsMwYrquUgJxaru'
 
 #key lists
 ticket_fields_key_list = ["id","title"]

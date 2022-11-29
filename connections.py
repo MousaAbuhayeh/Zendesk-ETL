@@ -1,8 +1,18 @@
+import os
+import configparser
 import logging.handlers
 import requests
 import pyodbc
 import time
-from static import zendesk_user,zendesk_pwd,native_client,sql_server,database,database_uid,database_pwd
+
+def read_config():
+    cfg = configparser.ConfigParser(os.environ)
+    directory = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(directory, 'config.ini')
+    cfg.read(config_path)
+    return cfg
+
+cfg = read_config()
 
 
 #setting up smtp_handler
@@ -10,7 +20,7 @@ smtp_handler = logging.handlers.SMTPHandler(mailhost=("mail.smtp2go.com", 2525),
                                             fromaddr="Data@equiti.com",
                                             toaddrs=("mousa.abuhayyeh@equiti.com","Data@equiti.com"),
                                             subject=u"Zendesk ETL!",
-                                            credentials=("Data@equiti.com","CEC2p5Wy8SHZhuSB"),
+                                            credentials=("Data@equiti.com",cfg.get('smtp','password')),
                                             secure= ())
 
 
@@ -18,7 +28,7 @@ logger = logging.getLogger()
 logger.addHandler(smtp_handler)
 
 def get_response(url):
-    response = requests.get(url, auth=(zendesk_user, zendesk_pwd))
+    response = requests.get(url, auth=(cfg.get('zendesk','user'), cfg.get('zendesk','pwd')))
     if response.status_code == 200:
         data = response.json()
         return data
@@ -36,7 +46,9 @@ def connect_to_sql_server():
                 "Server={};"
                 "Database={};"
                 "UID={};"
-                "PWD={};".format(native_client,sql_server,database,database_uid,database_pwd))
+                "PWD={};".format(cfg.get('database','native_client'),cfg.get('database','sql_server')
+                                 ,cfg.get('database','database'),cfg.get('database','database_uid')
+                                 ,cfg.get('database','database_pwd')))
     try:
         target_cnxn = pyodbc.connect(cnxn_str)
     except:
@@ -62,3 +74,5 @@ def fetch_data(cursor):
 
 def send_report(msg):
     logger.error(msg)
+
+
