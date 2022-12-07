@@ -1,14 +1,13 @@
+
+import time
+from datetime import date
+
+from connections import send_report
+from custom_fields_dynamic import check_create_custom_fields,update_maps
+from static import mapping_dict
+from tickets_info_dynamic import update_tickets_info
+
 if __name__ == '__main__':
-
-    import time
-    from datetime import date
-
-    from connections import send_report
-    from custom_fields_dynamic import check_create_custom_fields,update_maps
-    from static import mapping_dict
-    from tickets_info_dynamic import update_tickets_info
-
-
 
     st = time.time()
 
