@@ -47,8 +47,8 @@ def connect_to_sql_server():
                 "Database={};"
                 "UID={};"
                 "PWD={};".format(cfg.get('database','native_client'),cfg.get('database','sql_server')
-                                 ,cfg.get('database','database'),cfg.get('database','database_uid')
-                                 ,cfg.get('database','database_pwd')))
+                                 ,cfg.get('database','database'),cfg.get('database','data_uid')
+                                 ,cfg.get('database','data_pwd')))
     try:
         target_cnxn = pyodbc.connect(cnxn_str)
     except:
