@@ -26,7 +26,9 @@ def update_tickets_info():
             ticket_val_str += "("
             # tickets first section
             for val in tickets_fields_list_ticket:
-                if isinstance(ticket[val],str):
+                if ticket[val] is None:
+                    ticket_val_str += "NULL"
+                elif isinstance(ticket[val],str):
                     ticket_val_str += "N'%s'," % ticket[val].replace("'", "''")
                 else:
                     ticket_val_str += "N'%s'," % ticket[val]
@@ -35,19 +37,24 @@ def update_tickets_info():
             nd = NestedDict(ticket)
             for val in tickets_fields_list_via_satisfaction:
                 if val in nd:
-                    if isinstance(nd[val],str):
+                    if nd[val] is None:
+                        ticket_val_str += "NULL"
+                    elif isinstance(nd[val],str):
                         ticket_val_str += "N'%s'," % nd[val].replace("'", "''")
                     else:
                         ticket_val_str += "N'%s'," % nd[val]
                 else:
-                    ticket_val_str += "N'None',"
+                    ticket_val_str += "NULL"
 
 
             #tickets lists section
 
             for val in tickets_fields_list_lists:
                 value = str(ticket[val])
-                ticket_val_str += "N'%s'," % value.replace("'", "''")
+                if value is None:
+                    ticket_val_str += "NULL"
+                else:
+                    ticket_val_str += "N'%s'," % value.replace("'", "''")
 
             ticket_val_str = ticket_val_str.strip(',')
             ticket_val_str += "),"
@@ -61,7 +68,7 @@ def update_tickets_info():
                 if i == 0:
                     custom_column_str += ',"%s"' % custom['id']
                 if custom['value'] is None or custom['value'] == '':
-                    custom_val_str += "N'None',"
+                    custom_val_str += "NULL"
                 elif isinstance(custom['value'], str):
                     custom_val_str += "N'%s'," % custom['value'].replace("'", "''")
                 elif isinstance(custom['value'], list):
@@ -79,7 +86,9 @@ def update_tickets_info():
             #ticket metric sets
 
             for val in metric_sets_fields_list:
-                if isinstance(metric[val],dict):
+                if metric[val] is None:
+                    metric_val_str += "NULL"
+                elif isinstance(metric[val],dict):
                     metric_val_str += "N'%s'," % metric[val]['calendar']
                     metric_val_str += "N'%s'," % metric[val]['business']
                 else:
@@ -88,7 +97,7 @@ def update_tickets_info():
             if 'reply_time_in_seconds' in metric:
                 metric_val_str += "N'%s'," % metric['reply_time_in_seconds']['calendar']
             else:
-                metric_val_str += "N'None',"
+                metric_val_str += "NULL"
 
             metric_val_str = metric_val_str.strip(',')
             metric_val_str += "),"
