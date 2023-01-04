@@ -90,9 +90,17 @@ def update_tickets_info():
             for val in metric_sets_fields_list:
                 if metric[val] is None:
                     metric_val_str += "NULL,"
+                elif isinstance(metric[val], str):
+                    metric_val_str += "N'%s'," % metric[val].replace("'", "''")
                 elif isinstance(metric[val],dict):
-                    metric_val_str += "N'%s'," % metric[val]['calendar']
-                    metric_val_str += "N'%s'," % metric[val]['business']
+                    if metric[val]['calendar'] is None:
+                        metric_val_str += "NULL,"
+                    else:
+                        metric_val_str += "N'%s'," % metric[val]['calendar']
+                    if metric[val]['business'] is None:   
+                        metric_val_str += "NULL,"
+                    else:
+                        metric_val_str += "N'%s'," % metric[val]['business']
                 else:
                     metric_val_str += "N'%s'," % metric[val]
 
@@ -111,8 +119,8 @@ def update_tickets_info():
         id_str = id_str.strip(',')
         metric_id_str = metric_id_str.strip(',')
 
-        execute_sql_statement(1,cursor,sql_insert_into('zen_tickets',id_str,tickets_columns_str,ticket_val_str))
-        execute_sql_statement(1,cursor,sql_insert_into('zen_custom_fields', id_str, custom_column_str,custom_val_str,'ticket_id'))
+        #execute_sql_statement(1,cursor,sql_insert_into('zen_tickets',id_str,tickets_columns_str,ticket_val_str))
+        #execute_sql_statement(1,cursor,sql_insert_into('zen_custom_fields', id_str, custom_column_str,custom_val_str,'ticket_id'))
         execute_sql_statement(1,cursor,sql_insert_into('zen_metric_sets', metric_id_str, metric_sets_columns_str, metric_val_str))
 
         if data['end_of_stream'] is True:
