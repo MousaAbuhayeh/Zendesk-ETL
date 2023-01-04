@@ -13,6 +13,7 @@ def update_tickets_info():
     while url:
         data = get_response(url)
         id_str = ''
+        metric_id_str = ''
         ticket_val_str = ''
 
 
@@ -82,6 +83,7 @@ def update_tickets_info():
 
         #metric_sets section
         for metric in data['metric_sets']:
+            metric_id_str += "'%s'," % metric['id']
             metric_val_str += "("
             #ticket metric sets
 
@@ -107,9 +109,11 @@ def update_tickets_info():
         custom_val_str = custom_val_str.strip(',')
         metric_val_str = metric_val_str.strip(',')
         id_str = id_str.strip(',')
+        metric_id_str = metric_id_str.strip(',')
+
         execute_sql_statement(1,cursor,sql_insert_into('zen_tickets',id_str,tickets_columns_str,ticket_val_str))
         execute_sql_statement(1,cursor,sql_insert_into('zen_custom_fields', id_str, custom_column_str,custom_val_str,'ticket_id'))
-        execute_sql_statement(1,cursor,sql_insert_into('zen_metric_sets', id_str, metric_sets_columns_str, metric_val_str))
+        execute_sql_statement(1,cursor,sql_insert_into('zen_metric_sets', metric_id_str, metric_sets_columns_str, metric_val_str))
 
         if data['end_of_stream'] is True:
             url = None
