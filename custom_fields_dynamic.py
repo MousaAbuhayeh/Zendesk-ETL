@@ -49,7 +49,7 @@ def update_maps(url,main_key,table_name,column_str,fields_list):
             values_str += "("
             for key in fields_list:
                 if row[key] is None:
-                    values_str += "NULL"
+                    values_str += "NULL,"
                 elif isinstance(row[key], str):
                     values_str += "N'%s'," % row[key].replace("'", "''")
                 else:
