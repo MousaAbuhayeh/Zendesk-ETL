@@ -10,17 +10,17 @@ ticket_fields_column_str = '"id","field_name"'
 #mapping urls,table_names,columns_Str,value_lists
 mapping_dict = {
     "ticket_fields":
-    {"url":'https://equiti-helpdesk.zendesk.com/api/v2/ticket_fields.json?per_page=100',
+    {"url":'https://<domain>.zendesk.com/api/v2/ticket_fields.json?per_page=100',
      "table_name":'zen_ticket_fields',
      "column_str":'"id","field_name"',
      "field_list":["id","title"]},
      "groups":
-     {"url":'https://equiti-helpdesk.zendesk.com/api/v2/groups.json?per_page=100',
+     {"url":'https://<domain>.zendesk.com/api/v2/groups.json?per_page=100',
       "table_name":'zen_groups',
       "column_str":'"id","is_public","name","description","default","deleted","created_at","updated_at"',
       "field_list":["id","is_public","name","description","default","deleted","created_at","updated_at"]},
       "users":
-      {"url":'https://equiti-helpdesk.zendesk.com/api/v2/incremental/users/cursor.json?per_page=1000&start_time='+str(int(time.time())-100000),
+      {"url":'https://<domain>.zendesk.com/api/v2/incremental/users/cursor.json?per_page=1000&start_time='+str(int(time.time())-100000),
        "table_name":"zen_users",
        "column_str":'''"id","name","email","created_at","updated_at","time_zone","iana_time_zone","role",
        "verified","active","last_login_at","two_factor_auth_enabled","custom_role_id","restricted_agent",
@@ -81,5 +81,5 @@ metric_sets_columns_str = '''"id","ticket_id","created_at","updated_at","group_s
 
 
 #Base ticket's url
-base_url = 'https://equiti-helpdesk.zendesk.com/api/v2/tickets/1.json'
-ticket_update_url = 'https://equiti-helpdesk.zendesk.com/api/v2/incremental/tickets/cursor.json?per_page=500&include=metric_sets,comment_count&start_time='+str(int(time.time())-100000)
+base_url = 'https://<domain>.zendesk.com/api/v2/tickets/1.json'
+ticket_update_url = 'https://<domain>.zendesk.com/api/v2/incremental/tickets/cursor.json?per_page=500&include=metric_sets,comment_count&start_time='+str(int(time.time())-100000)
