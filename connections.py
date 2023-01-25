@@ -16,11 +16,11 @@ cfg = read_config()
 
 
 #setting up smtp_handler
-smtp_handler = logging.handlers.SMTPHandler(mailhost=("mail.smtp2go.com", 2525),
-                                            fromaddr="Data@equiti.com",
-                                            toaddrs=("mousa.abuhayyeh@equiti.com","Data@equiti.com"),
+smtp_handler = logging.handlers.SMTPHandler(mailhost=(<mail host>, <port>),
+                                            fromaddr=<sending email>,
+                                            toaddrs=(<receiving emails>),
                                             subject=u"Zendesk ETL!",
-                                            credentials=("Data@equiti.com",cfg.get('smtp','password')),
+                                            credentials=(<sneding email>,cfg.get('smtp','password')),
                                             secure= ())
 
 
